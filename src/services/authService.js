@@ -14,8 +14,10 @@ export const fetchUser = async (token) => {
             }
         });
         return response.data;
+
     } catch (error) {
         throw error;
     }
+
 
 }
