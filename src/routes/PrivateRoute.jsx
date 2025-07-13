@@ -1,20 +1,35 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { jwtDecode } from 'jwt-decode'
+import { useEffect, useState } from 'react'
+import { fetchUser } from '../services/authService'
 
 function PrivateRoute({ allowedRoles }) {
-    const token = localStorage.getItem('token')
+  const [status, setStatus] = useState('loading')
+  const [userRole, setUserRole] = useState(null)
 
-    if (!token) return <Navigate to="/login" />
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token')
+      if (!token) return setStatus('unauthorized')
 
-    try {
-        const decoded = jwtDecode(token)
-        if (!allowedRoles.includes(decoded.role)) {
-            return <Navigate to="/" />
+      try {
+        const user = await fetchUser(token)
+        setUserRole(user.role)
+        if (allowedRoles.includes(user.role)) {
+          setStatus('authorized')
+        } else {
+          setStatus('unauthorized')
         }
-        return <Outlet />
-    } catch (err) {
-        return <Navigate to="/login" />
+      } catch {
+        setStatus('unauthorized')
+      }
     }
+
+    checkAuth()
+  }, [allowedRoles])
+
+  if (status === 'loading') return null
+  if (status === 'unauthorized') return <Navigate to="/login" />
+  return <Outlet />
 }
 
 export default PrivateRoute
