@@ -13,6 +13,6 @@ Ez a projekt a ##webes frontend## részt tartalmazza, amely modern React + Vite 
 
 A src/config/apiConfig.js fájlban állítsd be a backend címet:
 
-  const LOCAL_IP = "http://192.168.1.64:3000";
+  const LOCAL_IP = "http://YOURIP:3000";
   
   export const API_URL = LOCAL_IP;
