@@ -40,14 +40,16 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
           <DialogTitle>Új felhasználó</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-2">
-          <Input name="username" placeholder="Név" onChange={handleChange} />
-          <Input name="email" placeholder="Email" onChange={handleChange} />
-          <Input name="password" type="password" placeholder="Jelszó" onChange={handleChange} />
+          <Input name="username" placeholder="Név" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"/>
+          <Input name="email" placeholder="Email" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"/>
+          <Input name="password" type="password" placeholder="Jelszó" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"/>
           <select
+          
             name="role"
             onChange={handleChange}
-            className="border rounded p-2"
+            className="border rounded p-2 focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none"
             defaultValue="user"
+          
           >
             <option value="user">User</option>
             <option value="admin">Admin</option>
@@ -55,7 +57,7 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
             <option value="institution">Institution</option>
             <option value="compliance">Compliance</option>
           </select>
-          <Button onClick={handleSubmit}>Létrehozás</Button>
+          <Button onClick={handleSubmit} className="bg-[#009688] mt-5 text-white hover:bg-[#00796b]">Létrehozás</Button>
         </div>
       </DialogContent>
     </Dialog>
