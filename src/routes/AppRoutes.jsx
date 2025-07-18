@@ -11,6 +11,7 @@ import PrivateRoute from './PrivateRoute'
 import TopBar from '../pages/Admin/TopBar'
 import Reports from '../pages/Admin/Reports'
 import Categories from '@/pages/Admin/Categories'
+import Institutions from '@/pages/Admin/Institutions'
 
 function AppRoutes() {
   return (
@@ -34,6 +35,7 @@ function AppRoutes() {
           <Route path="topBar" element={<TopBar />} />
           <Route path="reports" element={<Reports />} />
           <Route path="categories" element={<Categories/>} />
+          <Route path="institutions" element={<Institutions/>} />
         </Route>
       </Route>
     </Routes>

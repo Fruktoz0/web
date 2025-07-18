@@ -20,3 +20,7 @@ export const deleteInstitution = async(id) =>{
     const response = await axios.delete(`${API_BASE}/institutions/delete/${id}`);
     return response.data;
 }
+
+export const createInstitution = async() => {
+    
+}

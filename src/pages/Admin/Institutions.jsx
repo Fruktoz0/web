@@ -3,29 +3,40 @@ import { useState, useEffect } from 'react';
 import { DataTable } from "@/components/ui/data-table"
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { fetchAllCategories } from '@/services/categoryService';
-import AddCategoryModal from './AddCategoryModal';
 import { X } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { deleteCategory } from '@/services/categoryService';
+import AddInstitutionsModal from './AddInstitutionsModal';
+import { deleteInstitution, getAllInstitutions } from '@/services/institutionService';
 
 
-function Categories() {
+function Institutions() {
 
-    const [data, setData] = useState([]);
-    const [openAddCategory, setOpenAddCategory] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [showConfirm, setShowConfirm] = useState(false);
+       const [data, setData] = useState([]);
+        const [openAddInstitution, setOpenAddInstitution] = useState(false);
+        const [selectedInstitution, setSelectedInstitution] = useState(null);
+        const [showConfirm, setShowConfirm] = useState(false);
 
     const columns = [
         {
-            accessorKey: "categoryName",
-            header: "Kategória neve",
+            accessorKey: "name",
+            header: "Intézmény neve",
         },
         {
-            accessorKey: "institution.name",
-            header: "Hozzárendelt Intézmény",
-            cell: ({ row }) => row.original.institution?.name || "–",
+            accessorKey: "email",
+            header: "Email",
+        },
+             {
+            accessorKey: "description",
+            header: "Leírás",
+        },
+             {
+            accessorKey: "contactInfo",
+            header: "Elérhetőségek",
+        },
+             {
+            accessorKey: "user.username",
+            header: "Kapcsolattartó",
+            cell: ({ row }) => row.original.user?.username || "–",
         },
         {
             accessorKey: "createdAt",
@@ -40,7 +51,7 @@ function Categories() {
                         variant="outline"
                         className="cursor-pointer"
                         onClick={() => {
-                            setSelectedCategory(row.original)
+                            setSelectedInstitution(row.original)
                             setShowConfirm(true)
                         }}
                     >
@@ -57,49 +68,48 @@ function Categories() {
     useEffect(() => {
         const load = async () => {
             try {
-                const categories = await fetchAllCategories();
-                setData(categories);
+                const institutions = await getAllInstitutions();
+                setData(institutions);
             } catch (error) {
-                console.error("Hiba a kategóriák betöltésekor:", error);
+                console.error("Hiba az intézmények betöltésekor:", error);
             }
         };
         load();
     }, []);
 
 
-
     return (
         <div className="p-4 bg-white">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Kategóriák</h2>
-                <Button onClick={() => (setOpenAddCategory(true))} className="bg-[#009688] text-white hover:bg-[#00796b]">
-                    <Plus className="mr-2 h-4 w-4" /> Új Kategória
+                <h2 className="text-2xl font-bold">Intézmények</h2>
+                <Button onClick={() => (setOpenAddInstitution(true))} className="bg-[#009688] text-white hover:bg-[#00796b]">
+                    <Plus className="mr-2 h-4 w-4" /> Új Intézmény
                 </Button>
             </div>
             <DataTable columns={columns} data={data} />
 
-            <AddCategoryModal
-                open={openAddCategory}
-                setOpen={setOpenAddCategory}
+            <AddInstitutionsModal
+                open={openAddInstitution}
+                setOpen={setOpenAddInstitution}
                 onCategoryCreated={async () => {
-                    const categories = await fetchAllCategories();
-                    setData(categories);
+                    const institutions = await getAllInstitutions();
+                    setData(institutions);
                 }}
             />
             <Dialog open={showConfirm} onOpenChange={setShowConfirm}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Kategória törlése</DialogTitle>
+                        <DialogTitle>Intézmény törlése</DialogTitle>
                     </DialogHeader>
-                    <p>Biztosan törölni szeretnéd a(z) <strong>{selectedCategory?.categoryName}</strong> kategóriát?</p>
+                    <p>Biztosan törölni szeretnéd a(z) <strong>{selectedInstitution?.name}</strong> intézményt?</p>
                     <div className="flex justify-end gap-2 mt-4">
                         <Button variant="outline" onClick={() => setShowConfirm(false)}>Mégsem</Button>
                         <Button
                             className="bg-red-600 text-white hover:bg-red-700"
                             onClick={async () => {
                                 try {
-                                    await deleteCategory(selectedCategory.id);
-                                    const updated = await fetchAllCategories();
+                                    await deleteInstitution(selectedInstitution.id);
+                                    const updated = await getAllInstitutions();
                                     setData(updated);
                                     setShowConfirm(false);
                                 } catch (err) {
@@ -114,8 +124,7 @@ function Categories() {
                 </DialogContent>
             </Dialog>
         </div>
-
     )
 }
 
-export default Categories
+export default Institutions

@@ -10,3 +10,8 @@ export const createCategory = async (form) =>{
     const response = await axios.post(`${API_BASE}/categories/create`, form)
     return response.data;
 }
+
+export const deleteCategory = async(id) =>{
+    const response = await axios.delete(`${API_BASE}/categories/delete/${id}`)
+    return response.data;
+}

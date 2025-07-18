@@ -2,10 +2,10 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { DataTable } from "@/components/ui/data-table";
 import { fetchAllUsers } from '@/services/userService';
-import { UserPen, UserX } from 'lucide-react';
+import { UserPen, UserX, Plus, UserCheck, } from 'lucide-react';
 import AddUserModal from "@/pages/Admin/AddUserModal"
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+
 
 
 function Users() {
@@ -29,7 +29,24 @@ function Users() {
     {
       accessorKey: "isActive",
       header: "Státusz",
-      cell: ({ row }) => row.getValue("isActive") ? "✅ Aktív" : "⛔ Inaktív",
+      cell: ({ row }) => {
+        const isActive = row.getValue("isActive") === "active";
+        return (
+          <div className="flex items-center gap-2">
+            {isActive ? (
+              <>
+                <UserCheck className="text-green-600 w-4 h-4" />
+                Aktív
+              </>
+            ) : (
+              <>
+                <UserX className="text-red-600 w-4 h-4" />
+                Inaktív
+              </>
+            )}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "createdAt",
@@ -41,7 +58,7 @@ function Users() {
       accessorKey: "action",
       header: "Műveletek",
       cell: ({ row }) => (
-        <div className="flex gap-4">
+        <div>
           <UserPen
             className="cursor-pointer text-yellow-500 hover:text-blue-700"
             onClick={() => {
@@ -50,15 +67,6 @@ function Users() {
             }}
           >
           </UserPen>
-          <UserX
-            className="cursor-pointer text-red-500 hover:text-blue-700"
-            onClick={() => {
-              //Felhasználó törlése logika itt 
-              console.log("Törlés:", row.original);
-            }}
-          >
-
-          </UserX>
         </div>
 
       ),
@@ -87,7 +95,7 @@ function Users() {
           <Plus className="mr-2 h-4 w-4" /> Új felhasználó
         </Button>
       </div>
-      <DataTable columns={columns} data={data}  />
+      <DataTable columns={columns} data={data} />
 
       <AddUserModal
         open={openAddUser}
