@@ -1,12 +1,18 @@
-# React + Vite
+# Tiszta Város - Web Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+A ##Tiszta Város## egy közösségi bejelentő platform, ahol a lakosok jelezhetik a köztéri problémákat, mint például illegális szemét, kátyúk, hibás közvilágítás vagy elhanyagolt parkok.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ez a projekt a ##webes frontend## részt tartalmazza, amely modern React + Vite + Tailwind CSS + SHADCN/UI technológiákkal készült.
 
-## Expanding the ESLint configuration
+##Tech stack
+-
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+##API beállítás
+
+A src/config/apiConfig.js fájlban állítsd be a backend címet:
+
+  const LOCAL_IP = "http://YOURIP:3000";
+  
+  export const API_URL = LOCAL_IP;
