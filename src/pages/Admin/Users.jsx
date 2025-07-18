@@ -78,9 +78,6 @@ function Users() {
     load();
   }, []);
 
-  const handleCreateUser = () => {
-    console.log("Új felhasználó létrehozása");
-  };
 
   return (
     <div className="p-4 bg-white">
@@ -90,7 +87,7 @@ function Users() {
           <Plus className="mr-2 h-4 w-4" /> Új felhasználó
         </Button>
       </div>
-      <DataTable columns={columns} data={data} onCreate={handleCreateUser} />
+      <DataTable columns={columns} data={data}  />
 
       <AddUserModal
         open={openAddUser}

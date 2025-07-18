@@ -17,7 +17,6 @@ function Reports() {
       header: "Kép",
       cell: ({ row }) => {
         const img = row.original.reportImages?.[0]?.imageUrl;
-        console.log(img)
         return img ? (
           <img
             src={`${HTTP_URL}${img}`}

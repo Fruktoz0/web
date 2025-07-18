@@ -9,6 +9,7 @@ function Sidebar() {
                 <NavLink to="/admin/dashboard" className="py-2">Dashboard</NavLink>
                 <NavLink to="/admin/users" className="py-2">Felhasználók</NavLink>
                 <NavLink to="/admin/reports" className="py-2">Bejelentések</NavLink>
+                <NavLink to="/admin/categories" className="py-2">Kategóriák</NavLink>
             </nav>
         </aside>
     )

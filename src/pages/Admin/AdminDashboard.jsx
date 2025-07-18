@@ -52,8 +52,20 @@ function AdminDashboard() {
                 <div className="bg-white p-4 rounded shadow">
                     <h2 className="text-sm text-gray-500">Folyamatban lévő feladatok</h2>
                 </div>
-
-
+            </div>
+            <div className="grid grid-cols-4 gap-4 mt-5">
+                <div className="bg-white p-4 rounded shadow">
+                    <h2 className="text-sm text-gray-500">Átlag reagálási idő </h2>
+                </div>
+                 <div className="bg-white p-4 rounded shadow">
+                    <h2 className="text-sm text-gray-500">Leghosszabb reagálási idő </h2>
+                </div>
+                 <div className="bg-white p-4 rounded shadow">
+                    <h2 className="text-sm text-gray-500">Leghosszabb lezárásig eltelt idő </h2>
+                </div>
+                 <div className="bg-white p-4 rounded shadow">
+                    <h2 className="text-sm text-gray-500">Átlag reagálási idő </h2>
+                </div>
             </div>
         </div>
 
