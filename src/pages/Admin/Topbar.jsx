@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
 
-function TopBar() {
+function Topbar() {
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -23,4 +23,4 @@ function TopBar() {
     )
 }
 
-export default TopBar
+export default Topbar

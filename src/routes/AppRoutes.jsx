@@ -8,7 +8,7 @@ import UserDashboard from '../pages/User/UserDashboard'
 import Users from '../pages/Admin/Users'
 import Sidebar from '../pages/Admin/Sidebar'
 import PrivateRoute from './PrivateRoute'
-import TopBar from '../pages/Admin/TopBar'
+import Topbar from '../pages/Admin/Topbar'
 import Reports from '../pages/Admin/Reports'
 import Categories from '@/pages/Admin/Categories'
 import Institutions from '@/pages/Admin/Institutions'
@@ -32,7 +32,7 @@ function AppRoutes() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="users" element={<Users />} />
           <Route path="sidebar" element={<Sidebar />} />
-          <Route path="topBar" element={<TopBar />} />
+          <Route path="topbar" element={<Topbar />} />
           <Route path="reports" element={<Reports />} />
           <Route path="categories" element={<Categories/>} />
           <Route path="institutions" element={<Institutions/>} />
