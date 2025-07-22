@@ -23,13 +23,14 @@ jobs:
         run: |
           run: |
           ssh -i ~/.ssh/id_ed25519 fruktoz@185.65.68.235 << 'EOF'
-          cd tisztavaros
+          cd tisztavaros/web
             echo " Pulling latest code..."
             git pull origin main
 
             echo " Rebuilding services..."
             docker compose build
 
+            cd ..
             echo " Restarting containers..."
             docker compose up -d --remove-orphans
           
