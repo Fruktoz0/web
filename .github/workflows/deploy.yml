@@ -23,15 +23,14 @@ jobs:
         run: |
           run: |
           ssh -i ~/.ssh/id_ed25519 fruktoz@185.65.68.235 << 'EOF'
-            echo "✅ USER: \$(whoami)"
-            echo "✅ PATH: \$PATH"
-            echo "✅ Which docker: \$(which docker)"
-            echo "✅ Docker version:"
-            docker --version
-            echo "✅ Compose version:"
-            docker compose version
+          cd tisztavaros
+            echo " Pulling latest code..."
+            git pull origin main
 
-            cd tisztavaros
-            docker compose pull
+            echo " Rebuilding services..."
+            docker compose build
+
+            echo " Restarting containers..."
             docker compose up -d --remove-orphans
+          
           EOF
