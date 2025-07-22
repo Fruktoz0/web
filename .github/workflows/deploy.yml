@@ -23,6 +23,6 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_ed25519 fruktoz@185.65.68.235 << 'EOF'
             cd tisztavaros
-            docker-compose pull
-            docker-compose up -d --remove-orphans
+            docker compose pull
+            docker compose up -d --remove-orphans
           EOF
