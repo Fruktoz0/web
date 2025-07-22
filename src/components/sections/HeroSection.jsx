@@ -16,7 +16,7 @@ function HeroSection() {
     <div className="container mx-auto px-4 flex flex-col items-center justify-center gap-12 ">
       <div className="text-center md:text-middle max-w-xl space-y-6">
         <h1 className="text-4xl font-bold">
-          Tiszta Város - A közösség ereje a tisztább városért alma alma alma alma alma
+          Tiszta Város - A közösség ereje a tisztább városért
         </h1>
         <p className="text-lg">
           Csatlakozz hozzánk, és tegyünk együtt a városunk tisztaságáért! Segíts te is a közösségünknek, hogy egy szebb és tisztább környezetben élhessünk.
