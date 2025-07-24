@@ -100,7 +100,7 @@ function Institutions() {
             <AddInstitutionsModal
                 open={openAddInstitution}
                 setOpen={setOpenAddInstitution}
-                onCategoryCreated={async () => {
+                onInstitutionCreated={async () => {
                     const institutions = await getAllInstitutions();
                     setData(institutions);
                 }}

@@ -13,6 +13,7 @@ import { createInstitution, getAllInstitutions } from '@/services/institutionSer
 
 function AddInstitutionsModal({ open, setOpen, onInstitutionCreated }) {
 
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -21,14 +22,6 @@ function AddInstitutionsModal({ open, setOpen, onInstitutionCreated }) {
 
   });
 
-  useEffect(() => {
-    if (!open) return;
-    const loadInstitutions = async () => {
-      const data = await getAllInstitutions();
-      setInstitutions(data)
-    }
-    loadInstitutions()
-  }, [open])
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
