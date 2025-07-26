@@ -12,12 +12,14 @@ import Topbar from '../pages/Admin/Topbar'
 import Reports from '../pages/Admin/Reports'
 import Categories from '@/pages/Admin/Categories'
 import Institutions from '@/pages/Admin/Institutions'
+import Register from '@/pages/Register'
 
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       {/* USER ROUTES */}
       <Route element={<PrivateRoute allowedRoles={['user']} />}>
@@ -34,8 +36,8 @@ function AppRoutes() {
           <Route path="sidebar" element={<Sidebar />} />
           <Route path="topbar" element={<Topbar />} />
           <Route path="reports" element={<Reports />} />
-          <Route path="categories" element={<Categories/>} />
-          <Route path="institutions" element={<Institutions/>} />
+          <Route path="categories" element={<Categories />} />
+          <Route path="institutions" element={<Institutions />} />
         </Route>
       </Route>
     </Routes>

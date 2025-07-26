@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from "@/components/ui/button"
 import { MapPin, Vote, BadgeCheck } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 function FeaturesSection() {
   return (
@@ -39,7 +40,7 @@ function FeaturesSection() {
         </div>
 
         <Button className="mt-8 bg-[#009688] text-white hover:bg-[#00796b]">
-          Regisztrálj és próbáld ki!
+          <Link to="/register" className="text-sm">Regisztrálj és próbáld ki!</Link>
         </Button>
       </div>
     </section>

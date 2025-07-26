@@ -18,6 +18,17 @@ export const fetchUser = async (token) => {
     } catch (error) {
         throw error;
     }
+}
 
-
+export const register = async (username, email, password) => {
+    try {
+        const response = await axios.post(`${API_BASE}/auth/register`, {
+            username,
+            email,
+            password
+        })
+        return response.data
+    } catch (error) {
+            throw error;
+    }
 }

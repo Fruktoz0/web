@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { login, fetchUser } from '../services/authService'
+import Logo from "@/assets/logo.png"
 
 function Login() {
 
@@ -20,7 +20,6 @@ function Login() {
       localStorage.setItem('token', token);
 
       const user = await fetchUser(token);
-      console.log('✔️ User fetched:', user);
 
       if (user.role === 'admin') {
         navigate('/admin/dashboard');
@@ -40,33 +39,57 @@ function Login() {
     }
   }
 
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-[#f9f9f9] px-4">
-      <Card className="w-full max-w-md shadow-md">
-        <CardHeader>
-          <CardTitle className="text-2xl text-center">Bejelentkezés</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div>
-              <label className="block mb-1 text-sm font-medium">
-                Email
-              </label>
-              <Input onChange={(event) => setEmail(event.target.value)} value={email} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded" type="email" placeholder="email@pelda.hu" required />
-            </div>
-            <div>
-              <label className="block mb-1 text-sm font-medium text-zinc-700">
-                Jelszó
-              </label>
-              <Input onChange={(event) => setPassword(event.target.value)} value={password} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded" type="password" placeholder="••••••••" required />
-            </div>
-            <Button type="submit" className="w-full bg-[#009688] text-white hover:bg-[#00796b]" >
-              Bejelentkezés
-            </Button>
-            {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
-          </form>
-        </CardContent>
-      </Card>
+   return (
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Topbar */}
+      <header className="w-full bg-[#fffff4]">
+        <div className="container mx-auto px-4 py-4 flex justify-between">
+          <Link to="/" className="flex items-center gap-2">
+            <img src={Logo} alt="Tiszta Város logó" className="h-15 w-auto" />
+            <span className="text-3xl font-semibold sm:inline">Tiszta Város</span>
+          </Link>
+        </div>
+      </header>
+
+      {/* Form */}
+      <main className="flex flex-1 justify-center items-center px-4">
+        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-md shadow-md w-full max-w-lg">
+          <h2 className="text-2xl font-semibold mb-6 text-center">Bejelentkezés</h2>
+
+          <label className="block mb-2 font-medium">Email cím</label>
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mb-4 h-12 text-base focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"
+            placeholder="email@pelda.hu"
+            required
+          />
+
+          <label className="block mb-2 font-medium">Jelszó</label>
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mb-6 h-12 text-base focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"
+            placeholder="••••••••"
+            required
+          />
+
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+
+          <Button type="submit" className="w-full h-12 text-base bg-[#009688] text-white hover:bg-[#00796b]">
+            Bejelentkezés
+          </Button>
+
+          <div className="mt-6 text-center text-sm">
+            Még nincs fiókod?{" "}
+            <Link to="/register" className="text-[#D1343C] font-medium hover:underline">
+              Regisztrálj itt
+            </Link>
+          </div>
+        </form>
+      </main>
     </div>
   )
 }
