@@ -74,6 +74,7 @@ function Reports() {
       try {
         const token = localStorage.getItem("token")
         const reports = await fetchAllReports(token)
+        console.log("api válasz:" , reports)
         setData(reports)
       } catch (err) {
         console.error('Hiba a bejelentések lekérdezésekor', err)
