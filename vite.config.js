@@ -14,4 +14,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  //Hogy külön dns-en is elérhető legyen a web
+  server:{
+    host: true,
+    allowedHosts:['tisztavaros.duckdns.org']
+  }
 })
