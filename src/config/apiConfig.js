@@ -1,3 +1,3 @@
-const API_BASE = "http://185.65.68.235:3000/api";
+const API_BASE = "https://tisztavaros.duckdns.org/api";
 export default API_BASE;
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import HTTP_URL from '@/config/serverConfig'
+import ReportStatusTimeline from './ReportStatusTimeline';
 
 function ReportDetails({ report, onBack }) {
     if (!report) return null;
@@ -38,6 +39,8 @@ function ReportDetails({ report, onBack }) {
                     ))}
                 </div>
             </div>
+            <ReportStatusTimeline reportId={report.id} />
+
         </div>
     )
 }

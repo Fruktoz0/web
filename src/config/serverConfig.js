@@ -1,2 +1,2 @@
-const HTTP_URL = "http://185.65.68.235:3000";
+const HTTP_URL = "https://tisztavaros.duckdns.org:3000";
 export default HTTP_URL
