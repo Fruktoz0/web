@@ -14,7 +14,6 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    setError('');
     try {
       const { token } = await login(email, password);
       localStorage.setItem('token', token);
@@ -34,7 +33,7 @@ function Login() {
       }
 
     } catch (err) {
-      setError('Hibás email vagy jelszó');
+      setError(err);
       return;
     }
   }
