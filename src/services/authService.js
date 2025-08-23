@@ -21,7 +21,7 @@ export const fetchUser = async (token) => {
         });
         return response
     } catch (error) {
-        throw error.response || error;
+        throw getErrorMessage(error)
     }
 }
 
@@ -35,6 +35,6 @@ export const register = async (username, email, password, confirmPassword) => {
         })
         return response
     } catch (error) {
-        throw error.response || error;
+        throw getErrorMessage(error)
     }
 }

@@ -28,7 +28,7 @@ function Register() {
             navigate("/login")
 
         } catch (error) {
-            setError(error.data?.message)
+            setError(error)
         }
     }
 
