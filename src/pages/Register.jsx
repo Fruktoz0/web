@@ -9,7 +9,7 @@ import Logo from "@/assets/logo.png"
 
 function Register() {
 
-    const [formData, setFormData] = useState({ username: "", email: "", password: "" })
+    const [formData, setFormData] = useState({ username: "", email: "", password: "", confirmPassword: "" })
     const [error, setError] = useState("")
     const navigate = useNavigate()
 
@@ -23,11 +23,12 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await register(formData.username, formData.email, formData.password)
+            const res = await register(formData.username, formData.email, formData.password, formData.confirmPassword)
+            alert(res.data?.message)
             navigate("/login")
 
         } catch (error) {
-            setError("Hiba történt a regisztráció során")
+            setError(error.data?.message)
         }
     }
 
@@ -35,17 +36,17 @@ function Register() {
     return (
         <div className="min-h-screen bg-white flex flex-col">
             {/* Topbar */}
-              <header className="w-full bg-[#fffff4]" >
-                  <div className="container mx-auto px-4 py-4 flex justify-between">
-                   
+            <header className="w-full bg-[#fffff4]" >
+                <div className="container mx-auto px-4 py-4 flex justify-between">
+
                     <Link to="/" className="flex items-center gap-2">
-                      <img src={Logo} alt="Tiszta Város logó" className="h-15 w-auto" />
-                      <span className="text-3xl font-semibold sm:inline">Tiszta Város</span>
+                        <img src={Logo} alt="Tiszta Város logó" className="h-15 w-auto" />
+                        <span className="text-3xl font-semibold sm:inline">Tiszta Város</span>
                     </Link>
-            
-                
-                  </div>
-                </header>
+
+
+                </div>
+            </header>
 
             {/* Form */}
             <main className="flex flex-1 justify-center items-center px-4">
@@ -82,6 +83,16 @@ function Register() {
                         type="password"
                         name="password"
                         value={formData.password}
+                        onChange={handleChange}
+                        className="mb-6 h-12 text-base focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"
+                        placeholder="••••••••"
+                        required
+                    />
+                    <label className="block mb-2 font-medium">Jelszó újból</label>
+                    <Input
+                        type="password"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
                         onChange={handleChange}
                         className="mb-6 h-12 text-base focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"
                         placeholder="••••••••"

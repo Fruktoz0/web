@@ -3,7 +3,7 @@ import API_BASE from '../config/apiConfig';
 
 export const login = async (email, password) => {
     const response = await axios.post(`${API_BASE}/auth/login`, { email, password });
-    return response.data;
+    return response;
 }
 
 export const fetchUser = async (token) => {
@@ -13,22 +13,22 @@ export const fetchUser = async (token) => {
                 'Authorization': `Bearer ${token}`
             }
         });
-        return response.data;
-
+        return response
     } catch (error) {
-        throw error;
+        throw error.response || error;
     }
 }
 
-export const register = async (username, email, password) => {
+export const register = async (username, email, password, confirmPassword) => {
     try {
         const response = await axios.post(`${API_BASE}/auth/register`, {
             username,
             email,
-            password
+            password,
+            confirmPassword
         })
-        return response.data
+        return response
     } catch (error) {
-            throw error;
+            throw error.response || error;
     }
 }
