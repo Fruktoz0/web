@@ -1,2 +1,2 @@
-const HTTP_URL = "https://tisztavaros.duckdns.org";
+const HTTP_URL = "https://tisztavaros.hu";
 export default HTTP_URL

@@ -1,3 +1,3 @@
-const API_BASE = "https://tisztavaros.duckdns.org/api";
+const API_BASE = "https://tisztavaros.hu/api";
 export default API_BASE;
 
