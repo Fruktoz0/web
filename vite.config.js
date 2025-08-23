@@ -17,6 +17,6 @@ export default defineConfig({
   //Hogy külön dns-en is elérhető legyen a web
   server:{
     host: true,
-    allowedHosts:['tisztavaros.duckdns.org']
+    allowedHosts:['tisztavaros.hu']
   }
 })
