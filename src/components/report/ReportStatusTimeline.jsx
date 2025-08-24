@@ -38,7 +38,7 @@ const ReportStatusTimeline = ({ reportId }) => {
             </div>
             <div className="text-sm text-zinc-600 flex items-center gap-2">
               <User size={14} />
-              {item.changedBy}
+              {item.changedBy.userName}
             </div>
             {item.comment && (
               <div className="text-sm text-zinc-700 flex items-start gap-2 mt-1">
