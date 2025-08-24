@@ -10,7 +10,8 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
     username: "",
     email: "",
     password: "",
-    role: "user",
+    confirmPassword: "",
+    role: "Felhasználó",
   });
 
   const handleChange = (e) => {
@@ -20,7 +21,7 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.post(`${API_BASE}/auth/register`, form, {
+      await axios.post(`${API_BASE}/auth/admin/register`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,21 +41,21 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
           <DialogTitle>Új felhasználó</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-2">
-          <Input name="username" placeholder="Név" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"/>
-          <Input name="email" placeholder="Email" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"/>
-          <Input name="password" type="password" placeholder="Jelszó" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded"/>
+          <Input name="username" placeholder="Név" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded" />
+          <Input name="email" placeholder="Email" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded" />
+          <Input name="password" type="password" placeholder="Jelszó" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded" />
+          <Input name="confirmPassword" type="password" placeholder="Jelszó újra" onChange={handleChange} className="focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none rounded" />
           <select
-          
             name="role"
             onChange={handleChange}
             className="border rounded p-2 focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none"
-            defaultValue="user"
-          
+            defaultValue="Felhasználó"
+
           >
-            <option value="user">User</option>
+            <option value="user">Felhasználó</option>
             <option value="admin">Admin</option>
-            <option value="worker">Worker</option>
-            <option value="institution">Institution</option>
+            <option value="worker">Dolgozó</option>
+            <option value="institution">Intézményi felhasználó</option>
             <option value="compliance">Compliance</option>
           </select>
           <Button onClick={handleSubmit} className="bg-[#009688] mt-5 text-white hover:bg-[#00796b]">Létrehozás</Button>
