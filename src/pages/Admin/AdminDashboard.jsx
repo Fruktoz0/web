@@ -32,7 +32,7 @@ function AdminDashboard() {
                 setVoteCount(data.voteCount)
 
                 const averages = await getStatusAverage()
-                console.log("Átlag státuszidők:", averages) 
+                console.log("Átlag státuszidők:", averages)
                 setStatusAverage(averages)
             } catch (err) {
                 console.error("Hiba az adatok lekérdezésénél!", err)
@@ -62,8 +62,8 @@ function AdminDashboard() {
             {/* Státusz átlagidők */}
             <div className="grid grid-cols-2 gap-4 mt-5">
                 <div className="bg-white p-4 rounded shadow">
-        
-                    <p className="text-sm mt-3 text-gray-500">Mennyit töltenek a státuszokban:</p>
+
+                    <p className="text-sm mt-3 text-gray-500">Bejelentések státuszban töltött átlag ideje:</p>
 
                     <div className="mt-3 space-y-2">
                         {"message" in statusAverage ? (
