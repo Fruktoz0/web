@@ -5,7 +5,7 @@ import { getErrorMessage } from '@/utils/getErrorMessage';
 export const login = async (email, password) => {
     try {
         const response = await axios.post(`${API_BASE}/auth/login`, { email, password });
-        return response;
+        return response.data;
     } catch (error) {
         throw getErrorMessage(error)
     }
