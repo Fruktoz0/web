@@ -19,7 +19,7 @@ export const fetchUser = async (token) => {
                 'Authorization': `Bearer ${token}`
             }
         });
-        return response
+        return response.data
     } catch (error) {
         throw getErrorMessage(error)
     }
