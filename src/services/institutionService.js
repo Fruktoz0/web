@@ -1,6 +1,6 @@
 import axios from "axios"
 import API_BASE from "@/config/apiConfig"
-import Institutions from "@/pages/Admin/Institutions";
+
 
 
 export const getAllInstitutions = async () => {

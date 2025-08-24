@@ -5,13 +5,13 @@ import UserLayout from '../pages/User/UserLayout'
 import AdminLayout from '../pages/Admin/AdminLayout'
 import AdminDashboard from '../pages/Admin/AdminDashboard'
 import UserDashboard from '../pages/User/UserDashboard'
-import Users from '../pages/Admin/Users'
+import Users from '../pages/Admin/Users/Users'
 import Sidebar from '../pages/Admin/Sidebar'
 import PrivateRoute from './PrivateRoute'
 import Topbar from '../pages/Admin/Topbar'
-import Reports from '../pages/Admin/Reports'
-import Categories from '@/pages/Admin/Categories'
-import Institutions from '@/pages/Admin/Institutions'
+import Reports from '../pages/Admin/Reports/Reports'
+import Categories from '@/pages/Admin/Categories/Categories'
+import Institutions from '@/pages/Admin/Institutions/Institutions'
 import Register from '@/pages/Register'
 
 function AppRoutes() {
@@ -32,12 +32,20 @@ function AppRoutes() {
       <Route element={<PrivateRoute allowedRoles={['admin']} />}>
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<AdminDashboard />} />
+          {/*Felhasználó routes */}
           <Route path="users" element={<Users />} />
+        
+          {/*Kategória routes */}
+          <Route path="categories" element={<Categories />} />
+     
+          {/*Bejelentések routes */}
+          <Route path="reports" element={<Reports />} />
+         
           <Route path="sidebar" element={<Sidebar />} />
           <Route path="topbar" element={<Topbar />} />
-          <Route path="reports" element={<Reports />} />
-          <Route path="categories" element={<Categories />} />
+          
           <Route path="institutions" element={<Institutions />} />
+
         </Route>
       </Route>
     </Routes>

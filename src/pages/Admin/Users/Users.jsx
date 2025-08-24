@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { DataTable } from "@/components/ui/data-table";
 import { fetchAllUsers, updateUser } from '@/services/userService';
 import { UserPen, UserX, Plus, UserCheck, } from 'lucide-react';
-import AddUserModal from "@/pages/Admin/AddUserModal"
+import AddUserModal from "@/pages/Admin/Users/AddUserModal"
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "sonner"

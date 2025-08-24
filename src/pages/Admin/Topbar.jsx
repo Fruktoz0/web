@@ -14,7 +14,7 @@ function Topbar() {
 
     return (
         <header className="h-16 bg-white border-b px-4 flex items-center justify-between shadow-sm">
-            <div className="text-lg font-semibold">Admin Dashboard</div>
+            <div className="text-lg font-semibold">Admin Felhasználói felület</div>
             <div>
                 {/* Ide jön majd a user ikon, logout stb. */}
                 <Button variant="outline" onClick={handleLogout}>Kijelentkezés</Button>

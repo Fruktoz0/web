@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { fetchAllReports } from '@/services/reportService'
-import HTTP_URL from '../../config/serverConfig'
+import HTTP_URL from '@/config/serverConfig'
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { DataTable } from "@/components/ui/data-table";
