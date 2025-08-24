@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import API_BASE from "@/config/apiConfig";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 function AddUserModal({ open, setOpen, onUserCreated }) {
   const [form, setForm] = useState({
@@ -11,8 +12,9 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "Felhasználó",
+    role: "user",
   });
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,6 +22,10 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
 
   const handleSubmit = async () => {
     try {
+      if (form.password !== form.confirmPassword) {
+        setError("A jelszavak nem egyeznek.");
+        return
+      }
       const token = localStorage.getItem("token");
       await axios.post(`${API_BASE}/auth/admin/register`, form, {
         headers: {
@@ -29,8 +35,7 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
       onUserCreated();
       setOpen(false);
     } catch (error) {
-      console.error("Hiba felhasználó létrehozásakor:", error);
-      alert("Hiba történt. Ellenőrizd az adatokat.");
+      setError(getErrorMessage(error))
     }
   };
 
@@ -49,7 +54,7 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
             name="role"
             onChange={handleChange}
             className="border rounded p-2 focus-visible:ring-[#009688]/30 focus-visible:ring-2 focus-visible:border-none"
-            defaultValue="Felhasználó"
+            value={form.role}
 
           >
             <option value="user">Felhasználó</option>
@@ -58,6 +63,7 @@ function AddUserModal({ open, setOpen, onUserCreated }) {
             <option value="institution">Intézményi felhasználó</option>
             <option value="compliance">Compliance</option>
           </select>
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <Button onClick={handleSubmit} className="bg-[#009688] mt-5 text-white hover:bg-[#00796b]">Létrehozás</Button>
         </div>
       </DialogContent>
