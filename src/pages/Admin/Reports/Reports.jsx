@@ -5,11 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { DataTable } from "@/components/ui/data-table";
 import ReportDetails from '@/components/report/ReportDetails';
+import { fetchUser } from "@/services/authService";
 
 function Reports() {
 
   const [data, setData] = useState([]);
   const [selectedReport, setSelectedReport] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null)
 
   const columns = [
     {
@@ -73,20 +75,31 @@ function Reports() {
     const load = async () => {
       try {
         const token = localStorage.getItem("token")
+        if (!token) return;
+
+        // reportok betöltése
         const reports = await fetchAllReports(token)
         setData(reports)
+
+        // user betöltése
+        const user = await fetchUser(token)
+        setCurrentUser(user)
+
       } catch (err) {
-        console.error('Hiba a bejelentések lekérdezésekor', err)
+        console.error('Hiba a bejelentések vagy a user lekérdezésekor', err)
       }
     }
     load()
   }, [])
 
-
   return (
     <div className="p-4 bg-white">
       {selectedReport ? (
-        <ReportDetails report={selectedReport} onBack={() => setSelectedReport(null)} />
+        <ReportDetails
+          report={selectedReport}
+          onBack={() => setSelectedReport(null)}
+          currentUser={currentUser}
+        />
       ) : (
         <>
           <div className="flex justify-between items-center mb-4">

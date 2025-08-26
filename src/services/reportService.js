@@ -1,6 +1,7 @@
 import axios from 'axios';
 import API_BASE from '../config/apiConfig';
 import { getErrorMessage } from '@/utils/getErrorMessage';
+import Categories from '@/pages/Admin/Categories/Categories';
 
 
 export const fetchAllReports = async () => {
@@ -43,4 +44,28 @@ export const getStatusAverage = async () => {
     } catch (error) {
         throw getErrorMessage(error)
     }
+}
+
+export const forwardReport = async (reportId, institutionId, categoryId, reason) => {
+    try {
+        const token = localStorage.getItem('token')
+        const response = await axios.put(`${API_BASE}/reports/forward/${reportId}`, {
+            institutionId,
+            categoryId,
+            reason
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        return response.data
+    } catch (error) {
+        throw getErrorMessage(error)
+    }
+}
+
+export const getForwardLogs = async (reportId) => {
+    const token = localStorage.getItem('token')
+    const response = await axios.get(`${API_BASE}/reports/${reportId}/forwardLogs`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    return response.data
 }
