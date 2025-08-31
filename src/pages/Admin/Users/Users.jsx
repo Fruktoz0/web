@@ -8,11 +8,27 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "sonner"
 import { Toaster } from '@/components/ui/sonner';
+import { getAllInstitutions } from '@/services/institutionService';
+import { assignUserToInstitution } from '@/services/userService'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 
 function Users() {
 
   const [data, setData] = useState([]);
+  const [institutions, setInstitutions] = useState([])
   const [openAddUser, setOpenAddUser] = useState(false);
 
   const handleRoleChange = async (userId, newRole) => {
@@ -39,6 +55,22 @@ function Users() {
       toast.error("Hiba történt a státusz frissítésekor")
     }
   }
+  const handleInstChange = async (userId, institutionId) => {
+    const newId = institutionId === "none" ? null : institutionId;
+    try {
+      await assignUserToInstitution(userId, newId);
+      toast.success("Intézmény sikeresen módosítva.");
+      setData((prev) =>
+        prev.map((u) =>
+          u.id === userId ? { ...u, institutionId: newId } : u
+        )
+      );
+    } catch (err) {
+      toast.error(err);
+      console.error(err);
+    }
+  };
+
 
   const columns = [
     {
@@ -98,10 +130,48 @@ function Users() {
             </SelectContent>
           </Select>
         )
-
-
       }
     },
+    {
+      accessorKey: "institutionId",
+      header: "Intézmény",
+      cell: ({ row }) => {
+        const user = row.original;
+        const selectedInst = institutions.find((i) => String(i.id) === String(user.institutionId));
+
+        return (
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-[200px] justify-between">
+                {selectedInst ? selectedInst.name : "Válassz intézményt"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[250px] p-0">
+              <Command>
+                <CommandInput placeholder="Keresés intézmény szerint..." />
+                <CommandList>
+                  <CommandEmpty>Nincs találat.</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem onSelect={() => handleInstChange(user.id, "none")}>
+                      Nincs intézmény
+                    </CommandItem>
+                    {institutions.map((inst) => (
+                      <CommandItem
+                        key={inst.id}
+                        onSelect={() => handleInstChange(user.id, inst.id)}
+                      >
+                        {inst.name}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        );
+      },
+    },
+
     {
       accessorKey: "isActive",
       header: "Státusz",
@@ -147,6 +217,8 @@ function Users() {
       try {
         const users = await fetchAllUsers(token);
         setData(users);
+        const institution = await getAllInstitutions()
+        setInstitutions(institution)
       } catch (error) {
         console.error("Hiba a felhasználók betöltésekor:", error);
       }

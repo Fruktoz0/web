@@ -183,7 +183,6 @@ function ReportDetails({ report, onBack, currentUser }) {
                 </div>
             )}
 
-
             {/* Modal a továbbításhoz */}
             {
                 canForward && (
