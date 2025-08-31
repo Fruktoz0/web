@@ -18,16 +18,15 @@ function Login() {
       const { token } = await login(email, password);
       localStorage.setItem('token', token);
 
+
       const user = await fetchUser(token);
+      localStorage.setItem('role', user.role)
 
       if (user.role === 'admin') {
         navigate('/admin/dashboard');
       }
       else if (user.role === 'institution') {
-        navigate('/institution/dashboard');
-      }
-      else if (user.role === 'compliance') {
-        navigate('/compliance/dashboard');
+        navigate('/institutions/dashboard');
       } else {
         navigate('/user/dashboard');
       }
@@ -38,7 +37,7 @@ function Login() {
     }
   }
 
-   return (
+  return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Topbar */}
       <header className="w-full bg-[#fffff4]">

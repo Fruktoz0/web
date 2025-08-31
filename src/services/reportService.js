@@ -5,21 +5,43 @@ import Categories from '@/pages/Admin/Categories/Categories';
 
 
 export const fetchAllReports = async () => {
-    const token = localStorage.getItem('token');
-    const response = await axios.get(`${API_BASE}/reports/getAllReports`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
-    return response.data
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${API_BASE}/reports/getAllReports`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        return response.data
+    } catch (err) {
+        throw getErrorMessage(err)
+    }
+}
+
+export const fetchAssignedReports = async () => {
+    try {
+        const token = localStorage.getItem('token')
+        const response = await axios.get(`${API_BASE}/reports/assignedReports`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (err) {
+        throw getErrorMessage(err)
+    }
 }
 
 export const getStatusHistory = async (reportId) => {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`${API_BASE}/reports/${reportId}/status-history`, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
-    return res.data
+    try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get(`${API_BASE}/reports/${reportId}/status-history`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        return res.data
+    } catch (err) {
+        throw getErrorMessage(err)
+    }
 }
 
 export const getStatusDuration = async (reportId) => {
@@ -63,9 +85,13 @@ export const forwardReport = async (reportId, institutionId, categoryId, reason)
 }
 
 export const getForwardLogs = async (reportId) => {
-    const token = localStorage.getItem('token')
-    const response = await axios.get(`${API_BASE}/reports/${reportId}/forwardLogs`, {
-        headers: { Authorization: `Bearer ${token}` }
-    })
-    return response.data
+    try {
+        const token = localStorage.getItem('token')
+        const response = await axios.get(`${API_BASE}/reports/${reportId}/forwardLogs`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        return response.data
+    } catch (err) {
+        throw getErrorMessage(err)
+    }
 }

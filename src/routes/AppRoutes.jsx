@@ -29,24 +29,34 @@ function AppRoutes() {
       </Route>
 
       {/* ADMIN ROUTES */}
-      <Route element={<PrivateRoute allowedRoles={['admin']} />}>
-        <Route path="/admin" element={<AdminLayout />}>
+      <Route element={<PrivateRoute allowedRoles={['admin', 'institution']} />}>
+        <Route path="/admin/" element={<AdminLayout />}>
           <Route path="dashboard" element={<AdminDashboard />} />
           {/*Felhasználó routes */}
           <Route path="users" element={<Users />} />
-        
+
           {/*Kategória routes */}
           <Route path="categories" element={<Categories />} />
-     
+
           {/*Bejelentések routes */}
-          <Route path="reports" element={<Reports />} />
-         
+          <Route path="reports" element={<Reports mode="all"/>} />
           <Route path="sidebar" element={<Sidebar />} />
           <Route path="topbar" element={<Topbar />} />
-          
-          <Route path="institutions" element={<Institutions />} />
 
+          {/*Intézmények routes */}
+          <Route path="institutions" element={<Institutions />} />
         </Route>
+        <Route path="/institutions" element={<AdminLayout />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="users" element={<Users />} />
+          <Route path="categories" element={<Categories />} />
+          <Route path="reports" element={<Reports mode="all" />} />
+          <Route path="assigned-reports" element={<Reports mode="assigned" />} />
+          <Route path="sidebar" element={<Sidebar />} />
+          <Route path="topbar" element={<Topbar />} />
+          <Route path="institutions" element={<Institutions />} />
+        </Route>
+
       </Route>
     </Routes>
   )

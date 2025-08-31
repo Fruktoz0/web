@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchAllReports } from '@/services/reportService'
+import { fetchAllReports, fetchAssignedReports } from '@/services/reportService'
 import HTTP_URL from '@/config/serverConfig'
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
@@ -7,7 +7,7 @@ import { DataTable } from "@/components/ui/data-table";
 import ReportDetails from '@/components/report/ReportDetails';
 import { fetchUser } from "@/services/authService";
 
-function Reports() {
+function Reports({ mode = "all" }) {
 
   const [data, setData] = useState([]);
   const [selectedReport, setSelectedReport] = useState(null)
@@ -77,20 +77,24 @@ function Reports() {
         const token = localStorage.getItem("token")
         if (!token) return;
 
-        // reportok betöltése
-        const reports = await fetchAllReports(token)
-        setData(reports)
-
         // user betöltése
         const user = await fetchUser(token)
         setCurrentUser(user)
+
+        let reports = []
+        if (mode === "assigned") {
+          reports = await fetchAssignedReports(token)   // <-- intézményi
+        } else {
+          reports = await fetchAllReports(token)        // <-- összes
+        }
+        setData(reports)
 
       } catch (err) {
         console.error('Hiba a bejelentések vagy a user lekérdezésekor', err)
       }
     }
     load()
-  }, [])
+  }, [mode])
 
   return (
     <div className="p-4 bg-white">
