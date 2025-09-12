@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { DataTable } from "@/components/ui/data-table";
 import { fetchAllUsers, updateUser } from '@/services/userService';
-import { UserPen, UserX, Plus, UserCheck, } from 'lucide-react';
+import { UserPen, UserX, Plus, UserCheck, UserRoundMinus  } from 'lucide-react';
 import AddUserModal from "@/pages/Admin/Users/AddUserModal"
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -195,6 +195,10 @@ function Users() {
               <SelectItem value="inactive">
                 <UserX className="text-red-600 w-4 h-4" />
                 Inaktív
+              </SelectItem>
+              <SelectItem value="archived">
+                <UserRoundMinus className="text-blue-400 w-4 h-4" />
+                Archivált
               </SelectItem>
             </SelectContent>
           </Select>
