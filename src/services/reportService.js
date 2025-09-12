@@ -1,7 +1,6 @@
 import axios from 'axios';
 import API_BASE from '../config/apiConfig';
 import { getErrorMessage } from '@/utils/getErrorMessage';
-import Categories from '@/pages/Admin/Categories/Categories';
 
 
 export const fetchAllReports = async () => {

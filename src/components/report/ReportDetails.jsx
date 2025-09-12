@@ -24,7 +24,7 @@ function ReportDetails({ report, onBack, currentUser }) {
     const [openForward, setOpenForward] = useState(false);
     const [reload, setReload] = useState(false);
 
-    const role = localStorage.getItem("role")
+
 
     useEffect(() => {
         if (report?.id) {
@@ -36,6 +36,7 @@ function ReportDetails({ report, onBack, currentUser }) {
     if (!report) return null;
 
     const canForward = currentUser?.role === "admin" || currentUser?.role === "institution";
+    const isAuthorized = currentUser.role === 'admin' || (currentUser.role === 'institution' && currentUser.institutionId === report.institutionId);
 
     return (
         <div className="p-4 bg-white rounded shadow">
@@ -79,7 +80,14 @@ function ReportDetails({ report, onBack, currentUser }) {
                     </Carousel>
                 </div>
             </div>
-            {currentUser.role === 'institution' && currentUser.institutionId === report.institutionId && (
+            {currentUser.role === 'institution' && currentUser.institutionId !== report.institutionId && (
+                <p className="text-sm text-gray-500 mb-4">
+                    Megjegyzés: Az intézmény csak a hozzá tartozó bejelentéseknek láthatja a státuszát és kezelheti.
+                </p>
+            )}
+
+            {/* Csak akkor jelenjen meg, ha az aktuális user intézményhez tartozik vagy admin */}
+            {isAuthorized && (
                 <div div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     {/* Alsó rész: státusz történet + továbbítási előzmények */}
                     {/* Bal oldalt: státusz történet */}
