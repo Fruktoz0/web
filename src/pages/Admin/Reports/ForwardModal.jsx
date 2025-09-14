@@ -55,7 +55,7 @@ function ForwardModal({ open, setOpen, reportId, onSuccess }) {
       setCategoryId("");
       if (onSuccess) onSuccess(); // pl. logok újratöltése
     } catch (err) {
-      console.error("Hiba:", err);
+      console.error(err);
       alert("Hiba történt a továbbítás során!");
     } finally {
       setLoading(false);
@@ -110,7 +110,7 @@ function ForwardModal({ open, setOpen, reportId, onSuccess }) {
         />
 
         <DialogFooter>
-          <Button onClick={handleSubmit} disabled={loading}>
+          <Button variant="outline" onClick={handleSubmit} disabled={loading}>
             {loading ? "Továbbítás..." : "Továbbítás"}
           </Button>
         </DialogFooter>

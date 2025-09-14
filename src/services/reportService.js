@@ -94,3 +94,30 @@ export const getForwardLogs = async (reportId) => {
         throw getErrorMessage(err)
     }
 }
+
+export const statusChange = async (reportId, newStatus, comment) => {
+    try {
+        const token = localStorage.getItem('token')
+        const response = await axios.post(`${API_BASE}/reports/${reportId}/status`, {
+            statusId: newStatus,
+            comment: comment
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        return response.data
+    } catch (error) {
+        throw getErrorMessage(error)
+    }
+}
+
+export const getReportById = async (reportId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${API_BASE}/reports/${reportId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        throw getErrorMessage(error);
+    }
+}

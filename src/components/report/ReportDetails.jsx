@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import HTTP_URL from '@/config/serverConfig'
 import { getStatusHistory, getForwardLogs } from "@/services/reportService";
 import ForwardModal from "@/pages/Admin/Reports/ForwardModal";
+import StatusChangeModal from "@/pages/Admin/Reports/StatusChangeModal";
+import { getReportById } from '@/services/reportService';
 import {
     Carousel,
     CarouselContent,
@@ -22,12 +24,29 @@ function ReportDetails({ report, onBack, currentUser }) {
     const [statusHistory, setStatusHistory] = useState([]);
     const [forwardLogs, setForwardLogs] = useState([]);
     const [openForward, setOpenForward] = useState(false);
+    const [openStatusChange, setOpenStatusChange] = useState(false);
     const [reload, setReload] = useState(false);
+    const [reportData, setReportData] = useState(report);
+
+    const status = [
+        { value: "open", label: "Nyitva" },
+        { value: "forwarded", label: "Továbbítva" },
+        { value: "in_progress", label: "Folyamatban" },
+        { value: "resolved", label: "Megoldva" },
+        { value: "rejected", label: "Elutasítva" },
+        { value: "reopened", label: "Újranyitva" },
+    ]
+
+    const getStatusLabel = (value) => {
+        const match = status.find((s) => s.value === value);
+        return match ? match.label : value;
+    };
 
 
 
     useEffect(() => {
         if (report?.id) {
+            getReportById(report.id).then(setReportData).catch(console.error);
             getStatusHistory(report.id).then(setStatusHistory).catch(console.error);
             getForwardLogs(report.id).then(setForwardLogs).catch(console.error);
         }
@@ -49,21 +68,21 @@ function ReportDetails({ report, onBack, currentUser }) {
                 <div>
                     <h2 className="text-2xl font-bold mb-2">{report.title}</h2>
                     <p className="text-gray-600 mb-2">{report.description}</p>
-                    <p><strong>Bejelentő:</strong> {report.user?.username || "Ismeretlen"}</p>
-                    <p><strong>Kategória:</strong> {report.category?.categoryName || "–"}</p>
-                    <p><strong>Város:</strong> {report.city}</p>
-                    <p><strong>Cím:</strong> {report.address}, {report.zipCode}</p>
-                    <p><strong>Koordináták:</strong> {report.locationLat}, {report.locationLng}</p>
-                    <p><strong>Intézmény:</strong> {report.institution?.name || "–"}</p>
-                    <p><strong>Státusz:</strong> {report.status}</p>
-                    <p><strong>Dátum:</strong> {new Date(report.createdAt).toLocaleDateString("hu-HU")}</p>
-                    <p><strong>Szavazatok:</strong> {report.reportVotes?.length || 0}</p>
+                    <p><strong>Bejelentő:</strong> {reportData.user?.username || "Ismeretlen"}</p>
+                    <p><strong>Kategória:</strong> {reportData.category?.categoryName || "–"}</p>
+                    <p><strong>Város:</strong> {reportData.city}</p>
+                    <p><strong>Cím:</strong> {reportData.address}, {reportData.zipCode}</p>
+                    <p><strong>Koordináták:</strong> {reportData.locationLat}, {reportData.locationLng}</p>
+                    <p><strong>Intézmény:</strong> {reportData.institution?.name || "–"}</p>
+                    <p><strong>Státusz:</strong> {status.find((option) => option.value === reportData.status)?.label}</p>
+                    <p><strong>Dátum:</strong> {new Date(reportData.createdAt).toLocaleDateString("hu-HU")}</p>
+                    <p><strong>Szavazatok:</strong> {reportData.reportVotes?.length || 0}</p>
                 </div>
 
                 <div className="flex justify-center mb-4">
                     <Carousel className="w-full max-w-md">
                         <CarouselContent>
-                            {report.reportImages?.map((img, index) => (
+                            {reportData.reportImages?.map((img, index) => (
                                 <CarouselItem key={index}>
                                     <div className="p-1">
                                         <img
@@ -88,25 +107,38 @@ function ReportDetails({ report, onBack, currentUser }) {
 
             {/* Csak akkor jelenjen meg, ha az aktuális user intézményhez tartozik vagy admin */}
             {isAuthorized && (
-                <div div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     {/* Alsó rész: státusz történet + továbbítási előzmények */}
                     {/* Bal oldalt: státusz történet */}
                     <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                        <h3 className="font-bold mb-3">Státusz történet</h3>
+                        <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-bold mb-3">Státusz történet</h3>
+                            {canForward && (
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => setOpenStatusChange(true)}
+                                    className="flex items-center gap-1"
+                                >
+                                    <Plus className="w-4 h-4" /> Új státuszváltás
+                                </Button>
+                            )}
+                        </div>
+
                         {statusHistory.length === 0 ? (
-                            <p className="text-gray-500">Nincs státuszváltás.</p>
+                            <p className="text-gray-500">Nincs státuszváltási előzmény.</p>
                         ) : (
                             <Accordion type="single" collapsible className="w-full">
                                 {statusHistory.map((entry, idx) => (
                                     <AccordionItem
                                         key={idx}
                                         value={`status-${idx}`}
-                                        className="bg-white rounded mb-2"
+                                        className="bg-white rounded mb-2 px-2"
                                     >
                                         <AccordionTrigger>
                                             <div className="flex items-center gap-2">
-                                                <span>{new Date(entry.changedAt).toLocaleString()}</span>
-                                                <span className="font-medium">{entry.status}</span>
+                                                <span className='text-gray-500'>{new Date(entry.changedAt).toLocaleString()}</span>
+                                                <span className="font-medium">{getStatusLabel(entry.status)}</span>
                                             </div>
                                         </AccordionTrigger>
                                         <AccordionContent>
@@ -153,7 +185,7 @@ function ReportDetails({ report, onBack, currentUser }) {
                                     <AccordionItem
                                         key={log.id}
                                         value={`log-${idx}`}
-                                        className="bg-white rounded mb-2"
+                                        className="bg-white rounded mb-2 px-2"
                                     >
                                         <AccordionTrigger>
                                             <div className="flex items-center gap-2">
@@ -197,11 +229,25 @@ function ReportDetails({ report, onBack, currentUser }) {
                     <ForwardModal
                         open={openForward}
                         setOpen={setOpenForward}
-                        reportId={report.id}
+                        reportId={reportData.id}
                         onSuccess={() => setReload(!reload)}
                     />
                 )
             }
+
+            {/* Modal a státuszváltáshoz */}
+            {
+                canForward && (
+                    <StatusChangeModal
+                        open={openStatusChange}
+                        setOpen={setOpenStatusChange}
+                        reportId={reportData.id}
+                        currentStatus={reportData.status}
+                        onSuccess={() => setReload(!reload)}
+                    />
+                )
+            }
+
         </div >
     )
 }
