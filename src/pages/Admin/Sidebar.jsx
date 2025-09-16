@@ -76,16 +76,25 @@ function Sidebar() {
                     </AccordionContent>
 
                 </AccordionItem>
+
+
                 <AccordionItem value="challenges">
                     <AccordionTrigger className="flex items-center justify-between px-4 py-2 rounded hover:bg-gray-100">
-                        <span className="flex items-center gap-2"><Building2 size={16} /> Kihívások</span>
+                        <span className="flex items-center gap-2"><FileText size={16} /> Kihívások</span>
                     </AccordionTrigger>
                     <AccordionContent className="ml-6 mt-1 space-y-1">
                         <Link to={`${basePath}/challenges`} className="block px-2 py-1 rounded hover:bg-gray-100">
-                            Összes listázása
+                            Összes listázás
                         </Link>
+                        {role === "institution" && (
+                            <Link to={`${basePath}/assigned-challenges`} className="block px-2 py-1 rounded hover:bg-gray-100">
+                                Saját intézmény kihívásai
+                            </Link>
+                        )}
+
 
                     </AccordionContent>
+
                 </AccordionItem>
             </Accordion>
         </aside>

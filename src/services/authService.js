@@ -9,11 +9,11 @@ export const login = async (email, password) => {
     } catch (error) {
         throw getErrorMessage(error)
     }
-
 }
 
-export const fetchUser = async (token) => {
+export const fetchUser = async () => {
     try {
+        const token = localStorage.getItem("token")
         const response = await axios.get(`${API_BASE}/auth/user`, {
             headers: {
                 'Authorization': `Bearer ${token}`

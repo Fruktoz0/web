@@ -13,6 +13,7 @@ import Reports from '../pages/Admin/Reports/Reports'
 import Categories from '@/pages/Admin/Categories/Categories'
 import Institutions from '@/pages/Admin/Institutions/Institutions'
 import Register from '@/pages/Register'
+import Challenges from '../pages/Admin/Challenges/Challenges'
 
 function AppRoutes() {
   return (
@@ -32,20 +33,15 @@ function AppRoutes() {
       <Route element={<PrivateRoute allowedRoles={['admin', 'institution']} />}>
         <Route path="/admin/" element={<AdminLayout />}>
           <Route path="dashboard" element={<AdminDashboard />} />
-          {/*Felhasználó routes */}
           <Route path="users" element={<Users />} />
-
-          {/*Kategória routes */}
           <Route path="categories" element={<Categories />} />
-
-          {/*Bejelentések routes */}
-          <Route path="reports" element={<Reports mode="all"/>} />
+          <Route path="reports" element={<Reports mode="all" />} />
           <Route path="sidebar" element={<Sidebar />} />
           <Route path="topbar" element={<Topbar />} />
-
-          {/*Intézmények routes */}
           <Route path="institutions" element={<Institutions />} />
+          <Route path="challenges" element={<Challenges />} />
         </Route>
+        {/* INSTITUTIONS ROUTES */}
         <Route path="/institutions" element={<AdminLayout />}>
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="users" element={<Users />} />
@@ -55,6 +51,8 @@ function AppRoutes() {
           <Route path="sidebar" element={<Sidebar />} />
           <Route path="topbar" element={<Topbar />} />
           <Route path="institutions" element={<Institutions />} />
+          <Route path="challenges" element={<Challenges mode="all" />} />
+          <Route path="assigned-challenges" element={<Challenges mode="assigned" />} />
         </Route>
 
       </Route>
