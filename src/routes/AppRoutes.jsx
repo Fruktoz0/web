@@ -22,13 +22,14 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* USER ROUTES */}
+      {/*
+      //User Routes - Elkészültéig kivéve.
       <Route element={<PrivateRoute allowedRoles={['user']} />}>
         <Route path="/user" element={<UserLayout />}>
           <Route path="dashboard" element={<UserDashboard />} />
         </Route>
       </Route>
-
+      */}
       {/* ADMIN ROUTES */}
       <Route element={<PrivateRoute allowedRoles={['admin', 'institution']} />}>
         <Route path="/admin/" element={<AdminLayout />}>
