@@ -25,12 +25,11 @@ function Login() {
       if (user.role === 'admin') {
         navigate('/admin/dashboard');
       }
-      else (user.role === 'institution')
-      navigate('/institutions/dashboard');
-      // } else {
-      //    navigate('/user/dashboard');  - Kivételre került 
-
-
+      else if (user.role === 'institution') {
+        navigate('/institutions/dashboard');
+      } else {
+         setError("Nincs jogosultságod belépni.");
+      }
     } catch (err) {
       setError(err);
       return;
