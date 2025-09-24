@@ -102,10 +102,6 @@ function Challenges({ mode = "all" }) {
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-2xl font-bold">Kihívások</h2>
 
-                        <Button onClick={() => setOpenAddChallenges(true)} className="bg-[#009688] text-white hover:bg-[#00796b]">
-                            <Plus className="mr-2 h-4 w-4" /> Új Kihívás
-                        </Button>
-
                     </div>
                     <DataTable columns={columns} data={data} />
                 </>
