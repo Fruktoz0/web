@@ -28,7 +28,7 @@ function HeroSection() {
             Fedezd fel a funkciókat
           </Button>
           <div>
-            <a href="https://tisztavaros.hu/app/tisztavaros.apk" target="_blank"
+            <a href="https://drive.google.com/file/d/1G6SkJc3GT-kPdaVMQlj4fpevLH6Qm6Vc/view?usp=sharing" target="_blank"
               class="inline-flex items-center bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-800">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.523 9.933l1.54-2.665a.75.75 0 00-1.298-.75l-1.563 2.7a8.236 8.236 0 00-7.402 0L7.236 6.518a.75.75 0 00-1.298.75l1.54 2.665A7.99 7.99 0 004 16a8 8 0 1016 0 7.99 7.99 0 00-2.477-6.067z" />
